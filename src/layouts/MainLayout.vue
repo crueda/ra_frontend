@@ -13,13 +13,13 @@
 
         <q-toolbar-title> Reto Autentia </q-toolbar-title>
 
-        <!-- <q-toggle
+        <q-toggle
           v-model="darkMode"
           checked-icon="dark_mode"
           color="grey"
           label=""
           unchecked-icon="light_mode"
-        /> -->
+        />
         <div>Versión {{ version }}</div>
       </q-toolbar>
     </q-header>
