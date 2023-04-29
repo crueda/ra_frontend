@@ -1,54 +1,50 @@
 <template>
   <section>
-    <div class="q-pa-md" style="max-width: 350px">
-      <q-toolbar class="bg-primary text-white shadow-2">
-        <q-toolbar-title>Usuarios</q-toolbar-title>
-      </q-toolbar>
+    <q-toolbar class="bg-primary text-white shadow-2">
+      <q-toolbar-title>Usuarios activos</q-toolbar-title>
+    </q-toolbar>
 
-      <q-list bordered>
-        <q-item
-          v-for="contact in userList"
-          :key="contact.username"
-          class="q-my-sm"
-          clickable
-          v-ripple
-        >
-          <q-item-section avatar>
-            <q-avatar color="primary" text-color="white">
-              {{ contact.letter }}
-            </q-avatar>
-          </q-item-section>
+    <q-list bordered>
+      <q-item
+        v-for="element in userList"
+        :key="element.username"
+        class="q-my-sm"
+        clickable
+        v-ripple
+        :active="element.selected"
+        active-class="bg-blue-2 text-black"
+        @click="onSelectUser(element)"
+      >
+        <q-item-section avatar>
+          <q-avatar color="primary" text-color="white">
+            {{ element.letter }}
+          </q-avatar>
+        </q-item-section>
 
-          <q-tooltip>{{ contact.username }}</q-tooltip>
+        <q-tooltip>{{ element.username }}</q-tooltip>
 
-          <q-item-section>
-            <q-item-label>{{ contact.name }}</q-item-label>
-            <q-item-label caption lines="1">{{ contact.email }}</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-    </div>
+        <q-item-section>
+          <q-item-label>{{ element.name }}</q-item-label>
+          <q-item-label caption lines="1">{{ element.email }}</q-item-label>
+        </q-item-section>
+      </q-item>
+    </q-list>
   </section>
-  <q-inner-loading :showing="isLoading">
-    <q-spinner-puff size="100px" color="primary" />
-  </q-inner-loading>
 </template>
 
 <script lang="js">
 import { defineComponent, PropType, onMounted, computed, watch, ref } from 'vue'
 import { User } from '../models'
 import { useStore } from 'src/store'
-import useHttp from 'src/util/useHttp.js'
 
 export default defineComponent({
   name: 'users-list',
+  emits: ['select-user'],
   props: {},
-  setup() {
+  setup(props, context) {
     const store = useStore()
-    const { get } = useHttp()
     const myWindow = ref({ width: 0, height: 0 })
     const listHeight = ref('0px')
-    const isLoading = ref(false)
     const userList = ref([])
 
     // const users: Array<String> = computed(() => {
@@ -62,26 +58,12 @@ export default defineComponent({
 
     onMounted(() => {
       handleResize()
-      loadData()
     })
 
     function handleResize() {
       myWindow.value.width = window.innerWidth
       myWindow.value.height = window.innerHeight
       listHeight.value = myWindow.value.height - 110 + 'px'
-    }
-
-    const loadData = async () => {
-      try {
-        isLoading.value = true
-        const response = await get('/users', {})
-        isLoading.value = false
-        store.commit('rau/setUsers', response.data)
-        console.log(response)
-      } catch (err) {
-        isLoading.value = false
-        console.error(err)
-      }
     }
 
     function showData() {
@@ -94,7 +76,19 @@ export default defineComponent({
       })
     }
 
-    return { isLoading, listHeight, userList }
+    function onSelectUser(user) {
+      userList.value.forEach(el=>{
+        if (user.username === el.username) {
+          el.selected = true
+        } else {
+          el.selected = false
+        }
+      })
+      context.emit('select-user', user)
+
+    }
+
+    return { listHeight, userList, onSelectUser }
   },
 })
 </script>

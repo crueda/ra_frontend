@@ -12,7 +12,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'a-btn',
+  name: 'au-btn',
   emits: ['on-click'],
   props: {
     label: {
