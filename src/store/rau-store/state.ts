@@ -1,9 +1,9 @@
-export interface ExampleStateInterface {
+export interface RauStateInterface {
   prop: boolean
   users: any
 }
 
-function state(): ExampleStateInterface {
+function state(): RauStateInterface {
   return {
     prop: false,
     users: [],

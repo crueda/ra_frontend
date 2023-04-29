@@ -3,9 +3,8 @@ import { InjectionKey } from 'vue'
 import { Router } from 'vue-router'
 import { createStore, Store as VuexStore, useStore as vuexUseStore } from 'vuex'
 
-// import state from './state'
-import example from './module-example'
-import { ExampleStateInterface } from './module-example/state'
+import example from './rau-store'
+import { RauStateInterface } from './rau-store/state'
 
 /*
  * If not building with SSR mode, you can
