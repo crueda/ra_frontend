@@ -10,6 +10,11 @@ const routes: RouteRecordRaw[] = [
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue'),
   },
+  {
+    path: '/logout',
+    name: 'logout',
+    component: () => import('pages/ErrorNotFound.vue'),
+  },
 ]
 
 export default routes

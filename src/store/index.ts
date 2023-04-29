@@ -3,7 +3,7 @@ import { InjectionKey } from 'vue'
 import { Router } from 'vue-router'
 import { createStore, Store as VuexStore, useStore as vuexUseStore } from 'vuex'
 
-import example from './rau-store'
+import rau from './rau-store'
 import { RauStateInterface } from './rau-store/state'
 
 /*
@@ -19,7 +19,7 @@ export interface StateInterface {
   // Define your own store structure, using submodules if needed
   // example: ExampleStateInterface;
   // Declared as unknown to avoid linting issue. Best to strongly type as per the line above.
-  example: unknown
+  rau: unknown
 }
 
 // provide typings for `this.$store`
@@ -44,7 +44,7 @@ export default store(function (/* { ssrContext } */) {
   const Store = createStore<StateInterface>({
     // state,
     modules: {
-      example,
+      rau,
     },
 
     // enable strict mode (adds overhead!)
