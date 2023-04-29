@@ -1,4 +1,4 @@
-# Reto Autentia (frontend∫)
+# Reto Autentia (frontend)
 
 Frontend del reto Autentia
 

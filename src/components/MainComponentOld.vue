@@ -13,24 +13,17 @@
         <q-tab name="info" icon="info" label="Aplicación"></q-tab>
       </q-tabs>
     </div>
-
-    <div class="main__option">
-      <AdminUsers v-if="mainTab === 'users'" />
-    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import AdminUsers from '@/components/users/AdminUsers.vue'
+import { defineComponent, PropType, computed, ref, toRef, Ref } from 'vue'
+import { Todo, Meta } from './models'
 
 export default defineComponent({
   name: 'MainComponent',
-  components: {
-    AdminUsers,
-  },
   props: {},
-  setup() {
+  setup(props) {
     const mainTab = ref('users')
 
     return {
@@ -42,19 +35,16 @@ export default defineComponent({
 
 <style scoped>
 .main {
-  padding: 0.5rem;
+  padding: 1rem;
   background-color: white;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  height: 100%;
-  width: 100%;
 }
 
 .main__tabs {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 1rem;
   padding: 1rem;
 }

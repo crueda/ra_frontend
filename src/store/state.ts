@@ -1,9 +1,9 @@
-export interface ExampleStateInterface {
+export interface StateInterface {
   prop: boolean
   users: any
 }
 
-function state(): ExampleStateInterface {
+function state(): StateInterface {
   return {
     prop: false,
     users: [],
