@@ -1,9 +1,9 @@
 <template>
   <q-btn
-    size="md"
-    icon="add"
-    color="secondary"
-    label="label"
+    :size="size"
+    :icon="icon"
+    :color="color"
+    :label="label"
     @click="onClick"
   />
 </template>
@@ -15,7 +15,19 @@ export default defineComponent({
   name: 'au-btn',
   emits: ['on-click'],
   props: {
+    size: {
+      type: String,
+      required: true,
+    },
+    icon: {
+      type: String,
+      required: true,
+    },
     label: {
+      type: String,
+      required: true,
+    },
+    color: {
       type: String,
       required: true,
     },
