@@ -178,6 +178,7 @@ export default defineComponent({
 
     const loadData = async () => {
       try {
+        debugger
         isLoading.value = true
         const response = await get('/users', {})
         isLoading.value = false
@@ -194,12 +195,12 @@ export default defineComponent({
     }
 
     function existUsername() {
-      //todo
+      //TODO
       return false
     }
 
     function isValidLengthUsername() {
-      //todo
+      //TODO
       return true
     }
 

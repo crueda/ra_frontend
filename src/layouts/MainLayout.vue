@@ -84,10 +84,10 @@ const docsList = [
     link: 'https://facebook.quasar.dev',
   },
   {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev',
+    title: 'About',
+    caption: 'Acerca de mi',
+    icon: 'person',
+    link: 'https://about.me/crueda',
   },
 ]
 

@@ -21,10 +21,12 @@
           </q-avatar>
         </q-item-section>
 
-        <q-tooltip>{{ element.username }}</q-tooltip>
+        <!-- <q-tooltip>{{ element.username }}</q-tooltip> -->
 
         <q-item-section>
-          <q-item-label>{{ element.name }}</q-item-label>
+          <q-item-label
+            >{{ element.username }} - {{ element.name }}</q-item-label
+          >
           <q-item-label caption lines="1">{{ element.email }}</q-item-label>
         </q-item-section>
       </q-item>
@@ -58,6 +60,7 @@ export default defineComponent({
 
     onMounted(() => {
       handleResize()
+      showData()
     })
 
     function handleResize() {
@@ -67,6 +70,7 @@ export default defineComponent({
     }
 
     function showData() {
+      debugger
       userList.value.length = 0
       users.value.forEach((el) => {
         userList.value.push({
