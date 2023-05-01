@@ -1,5 +1,6 @@
 <template>
   <q-btn
+    data-cy="button"
     :size="size"
     :icon="icon"
     :color="color"
@@ -17,19 +18,23 @@ export default defineComponent({
   props: {
     size: {
       type: String,
-      required: true,
+      required: false,
+      default: 'md',
     },
     icon: {
       type: String,
-      required: true,
+      required: false,
+      default: 'info',
     },
     label: {
       type: String,
-      required: true,
+      required: false,
+      default: 'button',
     },
     color: {
       type: String,
-      required: true,
+      required: false,
+      default: 'primary',
     },
   },
   setup(props, context) {

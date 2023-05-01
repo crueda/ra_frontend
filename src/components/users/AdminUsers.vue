@@ -199,8 +199,10 @@ export default defineComponent({
       return false
     }
 
-    function isValidLengthUsername() {
-      //TODO
+    function isValidLengthUsername(username) {
+      if (username.length < 4 || username.length > 20) {
+        return false
+      }
       return true
     }
 
@@ -209,7 +211,7 @@ export default defineComponent({
         showToast('warning', 'El identificador de usuario ya existe en el sistema')
         return
       }
-      if (!isValidLengthUsername()) {
+      if (!isValidLengthUsername(userSelected.value.username)) {
         showToast('warning', 'El identificador de usuario tiene que tener entre 4 y 20 caracteres')
         return
       }
