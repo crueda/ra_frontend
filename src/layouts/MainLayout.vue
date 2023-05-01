@@ -26,7 +26,7 @@
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <q-item-label header> Documentación </q-item-label>
+        <q-item-label header> Info </q-item-label>
 
         <DocMenuElement
           v-for="link in docsLinks"
@@ -47,46 +47,35 @@ import { defineComponent, ref, onMounted, watch } from 'vue'
 import DocMenuElement from 'src/components/DocMenuElement.vue'
 
 const docsList = [
+  // {
+  //   title: 'Docs',
+  //   caption: 'quasar.dev',
+  //   icon: 'school',
+  //   link: 'https://quasar.dev',
+  // },
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev',
+    title: 'Backend',
+    caption: 'github.com/crueda/ra_backend',
+    icon: 'fas fa-code',
+    link: 'https://github.com/crueda/ra_backend',
   },
   {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework',
+    title: 'Frontend',
+    caption: 'github.com/crueda/ra_frontend',
+    icon: 'fas fa-code',
+    link: 'https://github.com/crueda/ra_frontend',
   },
   {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev',
+    title: 'Docker',
+    caption: 'docker-componse.yml',
+    icon: 'fab fa-docker',
+    link: 'https://raw.githubusercontent.com/crueda/ra_docker/main/docker-compose.yml',
   },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev',
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev',
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev',
-  },
+
   {
     title: 'About',
     caption: 'Acerca de mi',
-    icon: 'person',
+    icon: 'fas fa-address-card',
     link: 'https://about.me/crueda',
   },
 ]
