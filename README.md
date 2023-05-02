@@ -1,6 +1,6 @@
 # Reto Autentia (frontend)
 
-Frontend del reto Autentia
+Frontend del reto Autentia - Gastos compartidos
 
 ## Install the dependencies
 
