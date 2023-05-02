@@ -18,6 +18,7 @@
     <div class="main__option">
       <AdminUsers v-if="mainTab === 'users'" />
       <AdminExpenses v-if="mainTab === 'expenses'" />
+      <BalanceList v-if="mainTab === 'balance'" />
     </div>
   </div>
 </template>
@@ -26,12 +27,14 @@
 import { defineComponent, ref } from 'vue'
 import AdminUsers from '@/components/users/AdminUsers.vue'
 import AdminExpenses from '@/components/expenses/AdminExpenses.vue'
+import BalanceList from '@/components/balance/BalanceList.vue'
 
 export default defineComponent({
   name: 'MainComponent',
   components: {
     AdminUsers,
     AdminExpenses,
+    BalanceList,
   },
   props: {},
   setup() {
