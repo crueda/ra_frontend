@@ -28,7 +28,11 @@
       />
     </section>
     <section class="main__list">
-      <ExpenseList :expenses="expenses" @select-expense="onSelectExpense" />
+      <ExpenseList
+        :key="counter"
+        :expenses="expenses"
+        @select-expense="onSelectExpense"
+      />
     </section>
   </div>
 
@@ -306,6 +310,7 @@ export default defineComponent({
       return store.state.rau.users
     })
     const userOptions = ref([])
+    const counter = ref(0)
 
     onMounted(() => {
       loadUserOptions()
@@ -324,16 +329,18 @@ export default defineComponent({
       userOptions.value.sort((a, b) => (a.username > b.username ? 1 : -1))
     }
 
-    function getActualDate() {
-      let today = new Date()
+    function getDateFromTimestamp(timestamp) {
+      let today = new Date(timestamp)
       let dayToday = today.getDate()
       let dayTodayFormatted = (dayToday < 10 ? '0' : '') + dayToday
       let monthToday = today.getMonth() + 1
       let monthTodayFormatted = (monthToday < 10 ? '0' : '') + monthToday
       let yearToday = today.getFullYear()
       let hourNow = today.getHours()
+      let hourNowFormatted =  (hourNow < 10 ? '0' : '') + hourNow
       let minuteNow = today.getMinutes()
-      return yearToday + '-' + monthTodayFormatted + '-' + dayTodayFormatted + ' ' + hourNow + ':' + minuteNow
+      let minuteNowFormatted = (minuteNow < 10 ? '0' : '') + minuteNow
+      return yearToday + '-' + monthTodayFormatted + '-' + dayTodayFormatted + ' ' + hourNowFormatted + ':' + minuteNowFormatted
     }
 
     function initExpenseSelected() {
@@ -342,7 +349,7 @@ export default defineComponent({
       }
       expenseSelected.value.amount = 0
       expenseSelected.value.description = ''
-      expenseSelected.value.date = getActualDate()
+      expenseSelected.value.date = getDateFromTimestamp(new Date().getTime())
     }
 
     function showAddPanel() {
@@ -350,8 +357,17 @@ export default defineComponent({
       isAddPanelOpen.value = true
     }
 
+    function loadSelectedUserInCombo() {
+      userOptions.value.forEach(el=>{
+        if (el.id === expenseSelected.value.userId) {
+          expenseSelected.value.user = el
+        }
+      })
+    }
+
     function showEditPanel() {
-      initExpenseSelected()
+      loadSelectedUserInCombo()
+      expenseSelected.value.date = getDateFromTimestamp(expenseSelected.value.timestamp)
       isEditPanelOpen.value = true
     }
 
@@ -360,9 +376,8 @@ export default defineComponent({
         isLoading.value = true
         const response = await get('/expenses', {})
         isLoading.value = false
-        let expenses = [...response.data]
-        expenses.sort((a, b) => (a.timestamp > b.timestamp ? 1 : -1))
-        expenses.value = expenses
+        expenses.value = [ ...response.data]
+        store.commit('rau/setExpenses', [...response.data])
       } catch (err) {
         showToast('negative', 'Error leyendo los gastos')
         isLoading.value = false
@@ -406,7 +421,6 @@ export default defineComponent({
         description: expenseSelected.value.description,
         timestamp: new Date(expenseSelected.value.date).getTime()
       }
-      console.log(expenseData)
       try {
         isLoading.value = true
         await put('/expense', {...expenseData })
@@ -440,7 +454,7 @@ export default defineComponent({
       }
     }
 
-    return {isLoading, expenseSelected, onSelectExpense, isAddPanelOpen, isEditPanelOpen, confirmDelete, onNewExpense, onEditExpense, onDeleteExpense, expenses, userOptions, showAddPanel, showEditPanel}
+    return {isLoading, expenseSelected, onSelectExpense, isAddPanelOpen, isEditPanelOpen, confirmDelete, onNewExpense, onEditExpense, onDeleteExpense, expenses, userOptions, showAddPanel, showEditPanel, counter}
   },
 })
 </script>

@@ -279,7 +279,6 @@ export default defineComponent({
     }
 
     function showEditPanel() {
-      initUserSelected()
       isEditPanelOpen.value = true
     }
 

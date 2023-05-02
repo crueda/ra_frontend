@@ -68,6 +68,13 @@ export default defineComponent({
     })
     const userData = ref({})
 
+    const expenses = computed(() => {
+      return store.state.rau.expenses
+    })
+    watch(expenses, () => {
+      showData()
+    })
+
     watch(
       () => props.expenses,
       () => {
@@ -123,14 +130,15 @@ export default defineComponent({
 
     function showData() {
       expenseList.value.length = 0
-      props.expenses.forEach((el) => {
+      expenses.value.forEach((el) => {
         expenseList.value.push({
           ...el,
           userName: userData.value[el.userId].name ? userData.value[el.userId].name : '',
           isoDate: dayjs(el.timestamp).format('DD/MM/YYYY - HH:mm'),
-          timeAgo: getDiff(el.timestamp)
+          timeAgo: getDiff(el.timestamp),
         })
       })
+      expenseList.value.sort((a, b) => (a.timestamp > b.timestamp ? 1 : -1))
     }
 
     function onSelectExpense(expense) {

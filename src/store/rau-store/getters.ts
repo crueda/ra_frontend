@@ -6,6 +6,9 @@ const getters: GetterTree<RauStateInterface, StateInterface> = {
   getUsers(context) {
     return context.users
   },
+  getExpenses(context) {
+    return context.expenses
+  },
 }
 
 export default getters
