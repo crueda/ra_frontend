@@ -37,6 +37,7 @@ export default defineComponent({
           letter: el.name[0],
         })
       })
+      userList.value.sort((a, b) => (a.username > b.username ? 1 : -1))
     }
 
     function onSelectUser(user) {

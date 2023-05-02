@@ -70,7 +70,6 @@ export default defineComponent({
     }
 
     function showData() {
-      debugger
       userList.value.length = 0
       users.value.forEach((el) => {
         userList.value.push({
@@ -82,7 +81,7 @@ export default defineComponent({
 
     function onSelectUser(user) {
       userList.value.forEach(el=>{
-        if (user.username === el.username) {
+        if (user.id === el.id) {
           el.selected = true
         } else {
           el.selected = false

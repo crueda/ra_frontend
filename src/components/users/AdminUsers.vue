@@ -6,7 +6,7 @@
         icon="add"
         color="primary"
         label="Añadir"
-        @on-click="isAddPanelOpen = true"
+        @on-click="showAddPanel()"
       />
       <au-btn
         v-if="userSelected.username !== ''"
@@ -14,7 +14,7 @@
         icon="edit"
         color="secondary"
         label="Editar"
-        @on-click="isEditPanelOpen = true"
+        @on-click="showEditPanel()"
       />
       <au-btn
         v-if="userSelected.username !== ''"
@@ -70,7 +70,7 @@
 
   <q-dialog v-model="isEditPanelOpen" persistent>
     <q-card style="width: 400px" class="q-px-sm q-pb-md">
-      <q-card-section class="main__unsubscribePanel--title">
+      <q-card-section class="main__panel--title">
         <div class="text-h6">Editar usuario</div>
         <div class="text-h7">{{ userSelected.username }}</div>
       </q-card-section>
@@ -116,8 +116,8 @@
         ¿Esta seguro desea eliminar este usuario?</q-card-section
       >
       <q-card-section class="q-pt-none">
-        ESTA ACCIÓN NO SE PUEDE DESHACER, LOS DATOS DEL VEHÍCULO NO RECUPERADOS
-        SERÁN ELIMINADOS DEL SISTEMA</q-card-section
+        ESTA ACCIÓN NO SE PUEDE DESHACER, LOS DATOS DEL USUARIO SERÁN ELIMINADOS
+        DEL SISTEMA</q-card-section
       >
 
       <q-card-actions align="right" class="bg-white text-teal">
@@ -180,9 +180,14 @@ export default defineComponent({
       loadData()
     })
 
+    function initUserSelected() {
+      userSelected.value.username = ''
+      userSelected.value.name = ''
+      userSelected.value.email = ''
+    }
+
     const loadData = async () => {
       try {
-        debugger
         isLoading.value = true
         const response = await get('/users', {})
         isLoading.value = false
@@ -195,7 +200,7 @@ export default defineComponent({
     }
 
     function onSelectUser(user) {
-      userSelected.value = user
+      userSelected.value = { ...user }
     }
 
     function existUsername() {
@@ -267,7 +272,18 @@ export default defineComponent({
       }
     }
 
-    return {isLoading, userSelected, onSelectUser, isAddPanelOpen, isEditPanelOpen, confirmDelete, onNewUser, onEditUser, onDeleteUser}
+
+    function showAddPanel() {
+      initUserSelected()
+      isAddPanelOpen.value = true
+    }
+
+    function showEditPanel() {
+      initUserSelected()
+      isEditPanelOpen.value = true
+    }
+
+    return {isLoading, userSelected, onSelectUser, isAddPanelOpen, isEditPanelOpen, confirmDelete, onNewUser, onEditUser, onDeleteUser, showAddPanel, showEditPanel}
   },
 })
 </script>

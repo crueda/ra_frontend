@@ -26,7 +26,7 @@
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <q-item-label header> Info </q-item-label>
+        <q-item-label header> Application info </q-item-label>
 
         <DocMenuElement
           v-for="link in docsLinks"
