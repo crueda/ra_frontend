@@ -146,7 +146,7 @@
 </template>
 
 <script lang="js">
-import { defineComponent, onMounted, computed, ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import UserList from '@/components/users/UserList.vue'
 import AuBtn from '@/components/ui/AuBtn.vue'
 import AuDialog from '@/components/ui/AuDialog.vue'

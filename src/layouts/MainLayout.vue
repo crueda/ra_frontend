@@ -11,7 +11,7 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title> Reto Autentia </q-toolbar-title>
+        <q-toolbar-title> Gastos compartidos </q-toolbar-title>
 
         <!-- <q-toggle
           v-model="darkMode"
@@ -26,7 +26,7 @@
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <q-item-label header> Shared Expenses App </q-item-label>
+        <q-item-label header> Reto Autentia </q-item-label>
 
         <DocMenuElement
           v-for="link in docsLinks"
@@ -69,6 +69,12 @@ const docsList = [
     title: 'Docker',
     caption: 'docker-componse.yml',
     icon: 'fab fa-docker',
+    link: 'https://raw.githubusercontent.com/crueda/ra_docker/main/docker-compose.yml',
+  },
+  {
+    title: 'Sonarqube',
+    caption: 'docker-componse.yml',
+    icon: 'fa-solid fa-list-check',
     link: 'https://raw.githubusercontent.com/crueda/ra_docker/main/docker-compose.yml',
   },
 

@@ -12,6 +12,7 @@
         <q-tab name="users" icon="person" label="Usuarios"></q-tab>
         <q-tab name="expenses" icon="euro" label="Gastos"></q-tab>
         <q-tab name="balance" icon="account_balance" label="Balance"></q-tab>
+        <q-tab name="debts" icon="payments" label="Deudas"></q-tab>
       </q-tabs>
     </div>
 
@@ -19,6 +20,7 @@
       <AdminUsers v-if="mainTab === 'users'" />
       <AdminExpenses v-if="mainTab === 'expenses'" />
       <BalanceList v-if="mainTab === 'balance'" />
+      <DebtsList v-if="mainTab === 'debts'" />
     </div>
   </div>
 </template>
@@ -28,6 +30,7 @@ import { defineComponent, ref } from 'vue'
 import AdminUsers from '@/components/users/AdminUsers.vue'
 import AdminExpenses from '@/components/expenses/AdminExpenses.vue'
 import BalanceList from '@/components/balance/BalanceList.vue'
+import DebtsList from '@/components/debts/DebtsList.vue'
 
 export default defineComponent({
   name: 'MainComponent',
@@ -35,6 +38,7 @@ export default defineComponent({
     AdminUsers,
     AdminExpenses,
     BalanceList,
+    DebtsList,
   },
   props: {},
   setup() {
