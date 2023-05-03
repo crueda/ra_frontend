@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue'
 import AdminUsers from '@/components/users/AdminUsers.vue'
 import AdminExpenses from '@/components/expenses/AdminExpenses.vue'
 import BalanceList from '@/components/balance/BalanceList.vue'
@@ -43,6 +43,10 @@ export default defineComponent({
   props: {},
   setup() {
     const mainTab = ref('users')
+
+    onMounted(() => {
+      console.log('onMounted MainComponent')
+    })
 
     return {
       mainTab,

@@ -42,6 +42,7 @@
           v-model="userSelected.username"
           label="Identificador del usuario"
           stack-label
+          autofocus
         />
         <q-input
           v-model="userSelected.name"
@@ -80,6 +81,7 @@
           v-model="userSelected.name"
           label="Nombre del usuario"
           stack-label
+          autofocus
         />
         <q-input
           v-model="userSelected.email"
@@ -144,7 +146,7 @@
 </template>
 
 <script lang="js">
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onMounted, ref, computed } from 'vue'
 import UserList from '@/components/users/UserList.vue'
 import AuBtn from '@/components/ui/AuBtn.vue'
 import { useStore } from 'src/store'
@@ -171,6 +173,9 @@ export default defineComponent({
     const isAddPanelOpen = ref(false)
     const isEditPanelOpen = ref(false)
     const confirmDelete = ref(false)
+    const users = computed(() => {
+      return store.state.rau.users
+    })
 
     onMounted(() => {
       loadData()
@@ -199,24 +204,20 @@ export default defineComponent({
       userSelected.value = { ...user }
     }
 
-    function existUsername() {
-      //TODO
-      return false
+    function existUsername(username) {
+      return users.value.map(el=>el.username).includes(username)
     }
 
-    function isValidLengthUsername(username) {
-      if (username.length < 4 || username.length > 20) {
-        return false
-      }
-      return true
+    function isInvalidLengthUsername(username) {
+      return (username.length < 4 || username.length > 20)
     }
 
     const onNewUser = async () => {
-      if (existUsername()) {
+      if (existUsername(userSelected.value.username)) {
         showToast('warning', 'El identificador de usuario ya existe en el sistema')
         return
       }
-      if (!isValidLengthUsername(userSelected.value.username)) {
+      if (isInvalidLengthUsername(userSelected.value.username)) {
         showToast('warning', 'El identificador de usuario tiene que tener entre 4 y 20 caracteres')
         return
       }

@@ -21,8 +21,6 @@
           </q-avatar>
         </q-item-section>
 
-        <!-- <q-tooltip>{{ element.username }}</q-tooltip> -->
-
         <q-item-section>
           <q-item-label
             >{{ element.username }} - {{ element.name }}</q-item-label
@@ -36,7 +34,6 @@
 
 <script lang="js">
 import { defineComponent, PropType, onMounted, computed, watch, ref } from 'vue'
-import { User } from '../models'
 import { useStore } from 'src/store'
 
 export default defineComponent({
@@ -49,7 +46,6 @@ export default defineComponent({
     const listHeight = ref('0px')
     const userList = ref([])
 
-    // const users: Array<String> = computed(() => {
     const users = computed(() => {
       return store.state.rau.users
     })

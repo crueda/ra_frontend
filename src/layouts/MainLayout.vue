@@ -13,13 +13,6 @@
 
         <q-toolbar-title> Gastos compartidos </q-toolbar-title>
 
-        <!-- <q-toggle
-          v-model="darkMode"
-          checked-icon="dark_mode"
-          color="grey"
-          label=""
-          unchecked-icon="light_mode"
-        /> -->
         <div>Versión {{ version }}</div>
       </q-toolbar>
     </q-header>
@@ -47,12 +40,6 @@ import { defineComponent, ref, onMounted, watch } from 'vue'
 import DocMenuElement from 'src/components/DocMenuElement.vue'
 
 const docsList = [
-  // {
-  //   title: 'Docs',
-  //   caption: 'quasar.dev',
-  //   icon: 'school',
-  //   link: 'https://quasar.dev',
-  // },
   {
     title: 'Backend',
     caption: 'github.com/crueda/ra_backend',
@@ -73,9 +60,9 @@ const docsList = [
   },
   {
     title: 'Sonarqube',
-    caption: 'docker-componse.yml',
+    caption: 'Acceder a Sonarqube GUI',
     icon: 'fa-solid fa-list-check',
-    link: 'https://raw.githubusercontent.com/crueda/ra_docker/main/docker-compose.yml',
+    link: 'http://localhost:9000/projects/favorite',
   },
 
   {

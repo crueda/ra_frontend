@@ -4,7 +4,6 @@ import { Router } from 'vue-router'
 import { createStore, Store as VuexStore, useStore as vuexUseStore } from 'vuex'
 
 import rau from './rau-store'
-import { RauStateInterface } from './rau-store/state'
 
 /*
  * If not building with SSR mode, you can

@@ -57,6 +57,7 @@
           fill-mask="#"
           reverse-fill-mask
           stack-label
+          autofocus
         />
         <q-input
           v-model="expenseSelected.description"
@@ -152,6 +153,7 @@
           fill-mask="#"
           reverse-fill-mask
           stack-label
+          autofocus
         />
         <q-input
           v-model="expenseSelected.description"

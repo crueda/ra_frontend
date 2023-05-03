@@ -54,6 +54,7 @@
 <script lang="js">
 import { defineComponent, onMounted, computed, watch, ref } from 'vue'
 import { useStore } from 'src/store'
+import useDebts  from 'src/usecases/useDebts.js'
 import useHttp from 'src/util/useHttp.js'
 import useToast from 'src/util/useToast.js'
 import AuBtn from '@/components/ui/AuBtn.vue'
@@ -69,6 +70,7 @@ export default defineComponent({
     const store = useStore()
     const isLoading = ref(false)
     const { showToast } = useToast()
+    const { splitPayments } = useDebts()
     const { get } = useHttp()
     const myWindow = ref({ width: 0, height: 0 })
     const listHeight = ref('0px')
@@ -86,7 +88,7 @@ export default defineComponent({
     })
     watch(expenses, () => {
       calculatePayments()
-      splitPayments()
+      doSplitPayments()
     })
 
     onMounted(() => {
@@ -122,45 +124,12 @@ export default defineComponent({
       })
     }
 
-    function splitPayments() {
-      debtList.value.length = 0
-      const people = Object.keys(payments.value);
-      const valuesPaid = Object.values(payments.value);
-
-      const sum = valuesPaid.reduce((acc, curr) => curr + acc);
-      const mean = sum / people.length;
-
-      const sortedPeople = people.sort((personA, personB) => payments.value[personA] - payments.value[personB]);
-      const sortedValuesPaid = sortedPeople.map((person) => payments.value[person] - mean);
-
-      let i = 0;
-      let j = sortedPeople.length - 1;
-      let debt;
-
-      while (i < j) {
-        debt = Math.min(-(sortedValuesPaid[i]), sortedValuesPaid[j]);
-        sortedValuesPaid[i] += debt;
-        sortedValuesPaid[j] -= debt;
-
-        // console.log(`${sortedPeople[i]} owes ${sortedPeople[j]} $${debt}`);
-        if (debt > 0) {
-        debtList.value.push({
-          userIdOrigin: sortedPeople[i],
-          userIdDestination: sortedPeople[j],
-          nameOrigin: userData.value[sortedPeople[i]].name ? userData.value[sortedPeople[i]].name : '',
-          nameDestination: userData.value[sortedPeople[j]].name ? userData.value[sortedPeople[j]].name : '',
-          amount: debt.toFixed(2)
-        })
-      }
-
-        if (sortedValuesPaid[i] === 0) {
-          i++;
-        }
-
-        if (sortedValuesPaid[j] === 0) {
-          j--;
-        }
-      }
+    function doSplitPayments() {
+      debtList.value = splitPayments(payments.value)
+      debtList.value.forEach(el=>{
+        el.nameOrigin = userData.value[el.userIdOrigin].name ? userData.value[el.userIdOrigin].name : ''
+        el.nameDestination = userData.value[el.userIdDestination].name ? userData.value[el.userIdDestination].name : ''
+      })
     }
 
     const loadData = async () => {

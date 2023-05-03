@@ -23,9 +23,9 @@
         </q-item-section>
 
         <q-item-section side top>
-          <q-item-label :class="getAmountClass(element)" lines="1">{{
-            element.amount
-          }}</q-item-label>
+          <q-item-label :class="getAmountClass(element)" lines="1"
+            >{{ element.amount }} €</q-item-label
+          >
         </q-item-section>
       </q-item>
     </q-list>
@@ -36,7 +36,7 @@
 </template>
 
 <script lang="js">
-import { defineComponent, onMounted, computed, watch, ref } from 'vue'
+import { defineComponent, onMounted, computed, ref } from 'vue'
 import { useStore } from 'src/store'
 import useHttp from 'src/util/useHttp.js'
 import useToast from 'src/util/useToast.js'
@@ -99,6 +99,7 @@ export default defineComponent({
       balances.value.forEach((el) => {
         balanceList.value.push({
           ...el,
+          amount: el.amount.toFixed(2),
           name: userData.value[el.userId].name ? userData.value[el.userId].name : '',
           letter: userData.value[el.userId].name ? userData.value[el.userId].name[0] : '',
         })

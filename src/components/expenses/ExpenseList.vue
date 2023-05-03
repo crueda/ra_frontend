@@ -123,6 +123,11 @@ export default defineComponent({
       } else if (minutes > 0) {
         out = out + minutes + ' minutos'
       }
+      if (secs === 1) {
+        out = out + secs + ' segundo'
+      } else if (secs > 0) {
+        out = out + secs + ' segundos'
+      }
 
       return out
     }
