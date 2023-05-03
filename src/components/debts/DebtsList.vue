@@ -4,6 +4,7 @@
       <q-toolbar-title class="main__toolbar"
         ><span>Lista de Deudas</span>
         <au-btn
+          v-if="debtList.length > 0"
           size="md"
           icon="check"
           color="primary"
@@ -22,19 +23,29 @@
       >
         <q-item-section>
           <q-item-label
-            >{{ element.nameOrigin }} ->
-            {{ element.nameDestination }}</q-item-label
-          >
+            >{{ element.nameOrigin }}
+            <q-icon name="east" size="2em" color="positive" />
+            {{ element.nameDestination }}
+          </q-item-label>
         </q-item-section>
 
         <q-item-section side top>
-          <q-item-label lines="1" class="main__item--amount"
+          <q-item-label lines="2" class="main__item--amount"
             >{{ element.amount }} €</q-item-label
           >
         </q-item-section>
       </q-item>
     </q-list>
   </section>
+
+  <au-dialog
+    v-model="confirmSettle"
+    message="¿Seguro que deseas liquidar todas las deudas? ESTA ACCIÓN NO SE PUEDE DESHACER, TODOS LOS DATOS DE GASTOS SERÁN ELIMINADOS
+        DEL SISTEMA"
+    @ok="onSettleOk"
+    @hide="onSettleCancel"
+  />
+
   <q-inner-loading :showing="isLoading">
     <q-spinner-puff size="100px" color="primary" />
   </q-inner-loading>
@@ -46,11 +57,13 @@ import { useStore } from 'src/store'
 import useHttp from 'src/util/useHttp.js'
 import useToast from 'src/util/useToast.js'
 import AuBtn from '@/components/ui/AuBtn.vue'
+import AuDialog from '@/components/ui/AuDialog.vue'
 
 export default defineComponent({
   name: 'debts-list',
   components: {
     AuBtn,
+    AuDialog
   },
   setup(props, context) {
     const store = useStore()
@@ -61,6 +74,7 @@ export default defineComponent({
     const listHeight = ref('0px')
     const debtList = ref([])
     const payments = ref({})
+    const confirmSettle = ref(false)
 
     const users = computed(() => {
       return store.state.rau.users
@@ -100,8 +114,12 @@ export default defineComponent({
       expenses.value.forEach(el=>{
         payments.value[el.userId] = payments.value[el.userId] ? payments.value[el.userId] + el.amount : el.amount
       })
-      console.log('****')
-      console.log(payments)
+      // fill with users without payments
+      users.value.forEach(el=>{
+        if (payments.value[el.id] === undefined) {
+          payments.value[el.id] = 0
+        }
+      })
     }
 
     function splitPayments() {
@@ -124,7 +142,8 @@ export default defineComponent({
         sortedValuesPaid[i] += debt;
         sortedValuesPaid[j] -= debt;
 
-        console.log(`${sortedPeople[i]} owes ${sortedPeople[j]} $${debt}`);
+        // console.log(`${sortedPeople[i]} owes ${sortedPeople[j]} $${debt}`);
+        if (debt > 0) {
         debtList.value.push({
           userIdOrigin: sortedPeople[i],
           userIdDestination: sortedPeople[j],
@@ -132,6 +151,7 @@ export default defineComponent({
           nameDestination: userData.value[sortedPeople[j]].name ? userData.value[sortedPeople[j]].name : '',
           amount: debt.toFixed(2)
         })
+      }
 
         if (sortedValuesPaid[i] === 0) {
           i++;
@@ -141,8 +161,6 @@ export default defineComponent({
           j--;
         }
       }
-      console.log('****2222')
-      console.log(debtList.value)
     }
 
     const loadData = async () => {
@@ -160,10 +178,35 @@ export default defineComponent({
 
 
     function onSettle() {
-      console.log('settle')
+      confirmSettle.value = true
     }
 
-    return { isLoading, listHeight, debtList, onSettle }
+    function onSettleOk() {
+      console.log('settle ok')
+      confirmSettle.value = true
+    }
+
+    function onSettleCancel() {
+      console.log('settle cancel')
+      doSettle()
+    }
+
+    const doSettle = async () => {
+      try {
+        isLoading.value = true
+        await get('/expenses/settle', {})
+        isLoading.value = false
+        showToast('positive', 'Todas las deudas han sido liquidadas')
+        debtList.value.length = 0
+      } catch (err) {
+        showToast('negative', 'Error liquidando las deudas')
+        isLoading.value = false
+        console.error(err)
+      }
+    }
+
+
+    return { isLoading, listHeight, debtList, onSettle, confirmSettle, onSettleOk, onSettleCancel }
   },
 })
 </script>

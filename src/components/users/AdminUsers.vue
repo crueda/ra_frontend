@@ -138,8 +138,6 @@
     </q-card>
   </q-dialog>
 
-  <au-dialog v-model="confirmDelete" />
-
   <q-inner-loading :showing="isLoading">
     <q-spinner-puff size="100px" color="primary" />
   </q-inner-loading>
@@ -149,7 +147,6 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import UserList from '@/components/users/UserList.vue'
 import AuBtn from '@/components/ui/AuBtn.vue'
-import AuDialog from '@/components/ui/AuDialog.vue'
 import { useStore } from 'src/store'
 import useHttp from 'src/util/useHttp.js'
 import useToast from 'src/util/useToast.js'
@@ -158,8 +155,7 @@ export default defineComponent({
   name: 'admin-users',
   components: {
     UserList,
-    AuBtn,
-    AuDialog
+    AuBtn
   },
   props: {},
   setup() {
