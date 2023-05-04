@@ -152,6 +152,7 @@ import AuBtn from '@/components/ui/AuBtn.vue'
 import { useStore } from 'src/store'
 import useHttp from 'src/util/useHttp.js'
 import useToast from 'src/util/useToast.js'
+import { validateEmail } from 'src/util/utils.js'
 
 export default defineComponent({
   name: 'admin-users',
@@ -212,42 +213,62 @@ export default defineComponent({
       return (username.length < 4 || username.length > 20)
     }
 
-    const onNewUser = async () => {
+    function validateNewUser() {
       if (existUsername(userSelected.value.username)) {
         showToast('warning', 'El identificador de usuario ya existe en el sistema')
-        return
+        return false
       }
       if (isInvalidLengthUsername(userSelected.value.username)) {
         showToast('warning', 'El identificador de usuario tiene que tener entre 4 y 20 caracteres')
-        return
+        return false
       }
-      try {
-        isLoading.value = true
-        delete userSelected.value.id
-        await post('/user', {...userSelected.value })
-        isLoading.value = false
-        showToast('positive', 'Usuario añadido al sistema')
-        isAddPanelOpen.value = false
-        loadData()
-      } catch (err) {
-        showToast('negative', 'Error añadiendo el usuario')
-        isLoading.value = false
-        console.error(err)
+      if (!validateEmail(userSelected.value.username)) {
+        showToast('warning', 'El campo email no tiene un formato correcto')
+        return false
+      }
+      return true
+    }
+
+    const onNewUser = async () => {
+      if (validateNewUser()) {
+        try {
+          isLoading.value = true
+          delete userSelected.value.id
+          await post('/user', {...userSelected.value })
+          isLoading.value = false
+          showToast('positive', 'Usuario añadido al sistema')
+          isAddPanelOpen.value = false
+          loadData()
+        } catch (err) {
+          showToast('negative', 'Error añadiendo el usuario')
+          isLoading.value = false
+          console.error(err)
+        }
       }
     }
 
+    function validateEditUser() {
+      if (!validateEmail(userSelected.value.username)) {
+        showToast('warning', 'El campo email no tiene un formato correcto')
+        return false
+      }
+      return true
+    }
+
     const onEditUser = async () => {
-      try {
-        isLoading.value = true
-        await put('/user', {...userSelected.value })
-        isLoading.value = false
-        showToast('positive', 'Usuario editado')
-        isEditPanelOpen.value = false
-        loadData()
-      } catch (err) {
-        showToast('negative', 'Error editado el usuario')
-        isLoading.value = false
-        console.error(err)
+      if (validateEditUser()) {
+        try {
+          isLoading.value = true
+          await put('/user', {...userSelected.value })
+          isLoading.value = false
+          showToast('positive', 'Usuario editado')
+          isEditPanelOpen.value = false
+          loadData()
+        } catch (err) {
+          showToast('negative', 'Error editado el usuario')
+          isLoading.value = false
+          console.error(err)
+        }
       }
     }
 

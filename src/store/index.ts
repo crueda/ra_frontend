@@ -39,7 +39,7 @@ declare module 'vuex' {
   }
 }
 
-export default store(function (/* { ssrContext } */) {
+export default store(function () {
   const Store = createStore<StateInterface>({
     // state,
     modules: {

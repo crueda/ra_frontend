@@ -137,7 +137,7 @@ export default defineComponent({
       expenses.value.forEach((el) => {
         expenseList.value.push({
           ...el,
-          userName: userData.value[el.userId].name ? userData.value[el.userId].name : '',
+          userName: userData.value[el.userId] && userData.value[el.userId].name ? userData.value[el.userId].name : '',
           isoDate: dayjs(el.timestamp).format('DD/MM/YYYY - HH:mm'),
           timeAgo: getDiff(el.timestamp),
         })

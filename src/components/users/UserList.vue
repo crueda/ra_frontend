@@ -33,7 +33,7 @@
 </template>
 
 <script lang="js">
-import { defineComponent, PropType, onMounted, computed, watch, ref } from 'vue'
+import { defineComponent, onMounted, computed, watch, ref } from 'vue'
 import { useStore } from 'src/store'
 
 export default defineComponent({
