@@ -280,7 +280,7 @@ import ExpenseList from '@/components/expenses/ExpenseList.vue'
 import AuBtn from '@/components/ui/AuBtn.vue'
 
 import { useStore } from 'src/store'
-import useHttp from 'src/util/useHttp.js'
+import useHttp from 'src/adapters/useHttp.js'
 import useToast from 'src/util/useToast.js'
 
 export default defineComponent({

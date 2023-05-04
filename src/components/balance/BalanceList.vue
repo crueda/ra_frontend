@@ -38,7 +38,7 @@
 <script lang="js">
 import { defineComponent, onMounted, computed, ref } from 'vue'
 import { useStore } from 'src/store'
-import useHttp from 'src/util/useHttp.js'
+import useHttp from 'src/adapters/useHttp.js'
 import useToast from 'src/util/useToast.js'
 
 export default defineComponent({

@@ -150,9 +150,10 @@ import { defineComponent, onMounted, ref, computed } from 'vue'
 import UserList from '@/components/users/UserList.vue'
 import AuBtn from '@/components/ui/AuBtn.vue'
 import { useStore } from 'src/store'
-import useHttp from 'src/util/useHttp.js'
+import useHttp from 'src/adapters/useHttp.js'
 import useToast from 'src/util/useToast.js'
 import { validateEmail } from 'src/util/utils.js'
+import useUsers from 'src/usecases/useUsers.js'
 
 export default defineComponent({
   name: 'admin-users',
@@ -164,6 +165,7 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const { get, post, put, remove } = useHttp()
+    const { getUsers, createUser, updateUser, deleteUser } = useUsers()
     const { showToast } = useToast()
     const isLoading = ref(false)
     const userSelected = ref({
@@ -191,7 +193,7 @@ export default defineComponent({
     const loadData = async () => {
       try {
         isLoading.value = true
-        const response = await get('/users', {})
+        const response = await getUsers()
         isLoading.value = false
         store.commit('rau/setUsers', response.data)
       } catch (err) {
@@ -222,7 +224,7 @@ export default defineComponent({
         showToast('warning', 'El identificador de usuario tiene que tener entre 4 y 20 caracteres')
         return false
       }
-      if (!validateEmail(userSelected.value.username)) {
+      if (!validateEmail(userSelected.value.email)) {
         showToast('warning', 'El campo email no tiene un formato correcto')
         return false
       }
@@ -234,7 +236,7 @@ export default defineComponent({
         try {
           isLoading.value = true
           delete userSelected.value.id
-          await post('/user', {...userSelected.value })
+          await createUser({...userSelected.value })
           isLoading.value = false
           showToast('positive', 'Usuario añadido al sistema')
           isAddPanelOpen.value = false
@@ -248,7 +250,7 @@ export default defineComponent({
     }
 
     function validateEditUser() {
-      if (!validateEmail(userSelected.value.username)) {
+      if (!validateEmail(userSelected.value.email)) {
         showToast('warning', 'El campo email no tiene un formato correcto')
         return false
       }
@@ -259,7 +261,7 @@ export default defineComponent({
       if (validateEditUser()) {
         try {
           isLoading.value = true
-          await put('/user', {...userSelected.value })
+          await updateUser({...userSelected.value })
           isLoading.value = false
           showToast('positive', 'Usuario editado')
           isEditPanelOpen.value = false

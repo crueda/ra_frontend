@@ -74,7 +74,7 @@ export default function () {
   }
 
   async function manageResponse(response) {
-    if ([401, 403].includes(response.status)) {
+    if (response && response.status && [401, 403].includes(response.status)) {
       store.$router.push({ name: 'logout' })
     }
   }
