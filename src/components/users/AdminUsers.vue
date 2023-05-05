@@ -150,7 +150,6 @@ import { defineComponent, onMounted, ref, computed } from 'vue'
 import UserList from '@/components/users/UserList.vue'
 import AuBtn from '@/components/ui/AuBtn.vue'
 import { useStore } from 'src/store'
-import useHttp from 'src/adapters/useHttp.js'
 import useToast from 'src/util/useToast.js'
 import { validateEmail } from 'src/util/utils.js'
 import useUsers from 'src/usecases/useUsers.js'
@@ -164,7 +163,6 @@ export default defineComponent({
   props: {},
   setup() {
     const store = useStore()
-    const { get, post, put, remove } = useHttp()
     const { getUsers, createUser, updateUser, deleteUser } = useUsers()
     const { showToast } = useToast()
     const isLoading = ref(false)
@@ -277,7 +275,7 @@ export default defineComponent({
     const onDeleteUser = async () => {
       try {
         isLoading.value = true
-        await remove('/user', {
+        await deleteUser({
           data: {
             id: userSelected.value.id,
           }

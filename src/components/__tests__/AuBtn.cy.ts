@@ -1,4 +1,4 @@
-import AuBtn from '../ui/AuBtn.vue'
+import AuBtn from 'src/components/ui/AuBtn.vue'
 
 describe('AuBtn', () => {
   it('renders a message', () => {

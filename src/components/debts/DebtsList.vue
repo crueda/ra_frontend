@@ -127,8 +127,8 @@ export default defineComponent({
     function doSplitPayments() {
       debtList.value = splitPayments(payments.value)
       debtList.value.forEach(el=>{
-        el.nameOrigin = userData.value[el.userIdOrigin].name ? userData.value[el.userIdOrigin].name : ''
-        el.nameDestination = userData.value[el.userIdDestination].name ? userData.value[el.userIdDestination].name : ''
+        el.nameOrigin = userData.value[el.userIdOrigin] && userData.value[el.userIdOrigin].name ? userData.value[el.userIdOrigin].name : '(usuario eliminado)'
+        el.nameDestination = userData.value[el.userIdDestination] && userData.value[el.userIdDestination].name ? userData.value[el.userIdDestination].name : '(usuario eliminado)'
       })
     }
 

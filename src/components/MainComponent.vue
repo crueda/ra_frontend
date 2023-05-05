@@ -10,7 +10,12 @@
         class="bg-white text-black main__tabs"
       >
         <q-tab name="users" icon="person" label="Usuarios"></q-tab>
-        <q-tab name="expenses" icon="euro" label="Gastos"></q-tab>
+        <q-tab
+          id="tab-expenses"
+          name="expenses"
+          icon="euro"
+          label="Gastos"
+        ></q-tab>
         <q-tab name="balance" icon="account_balance" label="Balance"></q-tab>
         <q-tab name="debts" icon="payments" label="Deudas"></q-tab>
       </q-tabs>

@@ -34,7 +34,6 @@ export default function () {
 
   async function deleteUser(body) {
     try {
-      console.log(body)
       await remove('/user', body)
     } catch (err) {
       throw new UserException('Error in deleteUser: ' + err)
