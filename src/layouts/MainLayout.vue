@@ -53,6 +53,13 @@ const docsList = [
     link: 'https://github.com/crueda/ra_frontend',
   },
   {
+    title: 'Api doc',
+    caption: 'Backend api doc',
+    icon: 'fa-regular fa-file-lines',
+    // link: 'http://localhost:8888/v3/api-docs/',
+    link: 'http://localhost:8888/swagger-ui/index.html#/',
+  },
+  {
     title: 'Docker',
     caption: 'docker-componse.yml',
     icon: 'fab fa-docker',
