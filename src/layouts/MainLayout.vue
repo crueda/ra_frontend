@@ -41,16 +41,16 @@ import DocMenuElement from 'src/components/DocMenuElement.vue'
 
 const docsList = [
   {
-    title: 'Backend',
-    caption: 'github.com/crueda/ra_backend',
-    icon: 'fas fa-code',
-    link: 'https://github.com/crueda/ra_backend',
-  },
-  {
     title: 'Frontend',
     caption: 'github.com/crueda/ra_frontend',
     icon: 'fas fa-code',
     link: 'https://github.com/crueda/ra_frontend',
+  },
+  {
+    title: 'Backend',
+    caption: 'github.com/crueda/ra_backend',
+    icon: 'fas fa-code',
+    link: 'https://github.com/crueda/ra_backend',
   },
   {
     title: 'Api doc',

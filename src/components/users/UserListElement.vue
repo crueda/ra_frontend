@@ -6,7 +6,7 @@
     v-ripple
     :active="data.selected"
     active-class="bg-blue-2 text-black"
-    @click="onSelectUser()"
+    @click="onClickUser()"
   >
     <q-item-section avatar>
       <q-avatar color="primary" text-color="white">
@@ -27,7 +27,7 @@ import { User } from 'src/models/user'
 
 export default defineComponent({
   name: 'users-list-element',
-  emits: ['select-user'],
+  emits: ['click-user'],
   props: {
     data: {
       type: Object as PropType<User>,
@@ -37,11 +37,11 @@ export default defineComponent({
   setup(props, context) {
     const userData = ref(props.data)
 
-    function onSelectUser() {
-      context.emit('select-user', userData)
+    function onClickUser() {
+      context.emit('click-user', userData)
     }
 
-    return { onSelectUser, userData }
+    return { onClickUser, userData }
   },
 })
 </script>

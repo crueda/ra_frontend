@@ -9,23 +9,24 @@
         mobile-arrows
         class="bg-white text-black main__tabs"
       >
-        <q-tab name="users" icon="person" label="Usuarios"></q-tab>
+        <q-tab name="AdminUsers" icon="person" label="Usuarios"></q-tab>
         <q-tab
           id="tab-expenses"
-          name="expenses"
+          name="AdminExpenses"
           icon="euro"
           label="Gastos"
         ></q-tab>
-        <q-tab name="balance" icon="account_balance" label="Balance"></q-tab>
-        <q-tab name="debts" icon="payments" label="Deudas"></q-tab>
+        <q-tab
+          name="BalanceList"
+          icon="account_balance"
+          label="Balance"
+        ></q-tab>
+        <q-tab name="DebtsList" icon="payments" label="Deudas"></q-tab>
       </q-tabs>
     </div>
 
     <div class="main__option">
-      <AdminUsers v-if="mainTab === 'users'" />
-      <AdminExpenses v-if="mainTab === 'expenses'" />
-      <BalanceList v-if="mainTab === 'balance'" />
-      <DebtsList v-if="mainTab === 'debts'" />
+      <component :is="mainTab" />
     </div>
   </div>
 </template>
@@ -47,7 +48,7 @@ export default defineComponent({
   },
   props: {},
   setup() {
-    const mainTab = ref('users')
+    const mainTab = ref('AdminUsers')
 
     onMounted(() => {
       console.log('onMounted MainComponent')

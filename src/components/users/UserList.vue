@@ -5,31 +5,12 @@
     </q-toolbar>
 
     <q-list bordered>
-      <q-item
+      <UserListElement
         v-for="element in userList"
-        :key="element.username"
-        class="q-my-sm"
-        clickable
-        v-ripple
-        :active="element.selected"
-        active-class="bg-blue-2 text-black"
-        @click="onSelectUser(element)"
-      >
-        <!-- <UserListElement :data="element"></UserListElement> -->
-
-        <q-item-section avatar>
-          <q-avatar color="primary" text-color="white">
-            {{ element.letter }}
-          </q-avatar>
-        </q-item-section>
-
-        <q-item-section>
-          <q-item-label
-            >{{ element.username }} - {{ element.name }}</q-item-label
-          >
-          <q-item-label caption lines="1">{{ element.email }}</q-item-label>
-        </q-item-section>
-      </q-item>
+        :key="element.id"
+        :data="element"
+        @click-user="onSelectUser(element)"
+      ></UserListElement>
     </q-list>
   </section>
 </template>
@@ -37,13 +18,13 @@
 <script lang="js">
 import { defineComponent, onMounted, computed, watch, ref } from 'vue'
 import { useStore } from 'src/store'
-// import UserListElement from '@/components/users/UserListElement.vue'
+import UserListElement from '@/components/users/UserListElement.vue'
 
 export default defineComponent({
   name: 'users-list',
   emits: ['select-user'],
   components: {
-    // UserListElement
+    UserListElement
   },
   props: {},
   setup(props, context) {
