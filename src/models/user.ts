@@ -3,6 +3,5 @@ export interface User {
   username: string
   name: string
   email: string
-  letter: string
   selected: boolean
 }

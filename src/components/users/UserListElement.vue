@@ -10,7 +10,7 @@
   >
     <q-item-section avatar>
       <q-avatar color="primary" text-color="white">
-        {{ data.letter }}
+        {{ letter }}
       </q-avatar>
     </q-item-section>
 
@@ -36,12 +36,13 @@ export default defineComponent({
   },
   setup(props, context) {
     const userData = ref(props.data)
+    const letter = ref(props.data.name[0])
 
     function onClickUser() {
       context.emit('click-user', userData)
     }
 
-    return { onClickUser, userData }
+    return { onClickUser, userData, letter }
   },
 })
 </script>

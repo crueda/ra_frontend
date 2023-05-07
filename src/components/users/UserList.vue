@@ -56,8 +56,7 @@ export default defineComponent({
       userList.value.length = 0
       users.value.forEach((el) => {
         userList.value.push({
-          ...el,
-          letter: el.name[0]
+          ...el
         })
       })
     }
