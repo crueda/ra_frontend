@@ -152,7 +152,7 @@ import AuBtn from '@/components/ui/AuBtn.vue'
 import { useStore } from 'src/store'
 import useToast from 'src/util/useToast.js'
 import { validateEmail } from 'src/util/utils.js'
-import useUsers from 'src/usecases/useUsers.js'
+import useUsers from 'src/domain/usecases/useUsers.js'
 
 export default defineComponent({
   name: 'admin-users',

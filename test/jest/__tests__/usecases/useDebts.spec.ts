@@ -1,33 +1,33 @@
 import { describe, expect, it } from '@jest/globals'
 import { installQuasarPlugin } from '@quasar/quasar-app-extension-testing-unit-jest'
-import useDebts from '../../../../src/usecases/useDebts.js'
+import useDebts from '../../../../src/domain/usecases/useDebts.js'
 
 installQuasarPlugin()
 
 const { splitPayments } = useDebts()
 
 describe('useDebts', () => {
-  it('split payments function', () => {
+  it('split payments function with normal input', () => {
     const payments = {
-      John: 400,
-      Jane: 1000,
-      Bob: 100,
-      Dave: 900,
+      Pedro: 400,
+      Lucia: 1000,
+      Juan: 100,
+      Ines: 900,
     }
     const out = [
       {
-        userIdOrigin: 'Bob',
-        userIdDestination: 'Jane',
+        userIdOrigin: 'Juan',
+        userIdDestination: 'Lucia',
         amount: '400.00',
       },
       {
-        userIdOrigin: 'Bob',
-        userIdDestination: 'Dave',
+        userIdOrigin: 'Juan',
+        userIdDestination: 'Ines',
         amount: '100.00',
       },
       {
-        userIdOrigin: 'John',
-        userIdDestination: 'Dave',
+        userIdOrigin: 'Pedro',
+        userIdDestination: 'Ines',
         amount: '200.00',
       },
     ]

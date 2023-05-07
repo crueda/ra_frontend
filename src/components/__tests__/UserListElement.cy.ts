@@ -1,6 +1,4 @@
 import UserListElement from 'src/components/users/UserListElement.vue'
-import { PropType, ref } from 'vue'
-import { User } from './models'
 
 describe('UserListElement', () => {
   it('renders a user element', () => {

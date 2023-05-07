@@ -54,7 +54,7 @@
 <script lang="js">
 import { defineComponent, onMounted, computed, watch, ref } from 'vue'
 import { useStore } from 'src/store'
-import useDebts  from 'src/usecases/useDebts.js'
+import useDebts  from 'src/domain/usecases/useDebts.js'
 import useHttp from 'src/adapters/useHttp.js'
 import useToast from 'src/util/useToast.js'
 import AuBtn from '@/components/ui/AuBtn.vue'

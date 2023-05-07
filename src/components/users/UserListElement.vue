@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, PropType } from 'vue'
-import { User } from 'src/models/user'
+import { User } from 'src/domain/entities/user'
 
 export default defineComponent({
   name: 'users-list-element',
