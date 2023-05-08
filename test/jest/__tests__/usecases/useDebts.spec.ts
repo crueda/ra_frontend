@@ -7,7 +7,30 @@ installQuasarPlugin()
 const { splitPayments } = useDebts()
 
 describe('useDebts', () => {
-  it('split payments function with normal input', () => {
+  it('split payments function with 1 user', () => {
+    const payments = {
+      Pedro: 400,
+    }
+    const out: unknown = []
+    expect(splitPayments(payments)).toEqual(out)
+  })
+
+  it('split payments function with 2 user', () => {
+    const payments = {
+      Pedro: 400,
+      Juan: 0,
+    }
+    const out = [
+      {
+        userIdOrigin: 'Juan',
+        userIdDestination: 'Pedro',
+        amount: '200.00',
+      },
+    ]
+    expect(splitPayments(payments)).toEqual(out)
+  })
+
+  it('split payments function with 4 users', () => {
     const payments = {
       Pedro: 400,
       Lucia: 1000,

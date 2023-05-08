@@ -114,14 +114,14 @@ export default defineComponent({
         out = out + days + ' días, '
       }
       if (hours === 1) {
-        out = out + hours + ' hora y '
+        out = out + hours + ' hora '
       } else if (hours > 0) {
-        out = out + hours + ' horas y '
+        out = out + hours + ' horas '
       }
       if (minutes === 1) {
-        out = out + minutes + ' minuto'
+        out = out + minutes + ' minuto y '
       } else if (minutes > 0) {
-        out = out + minutes + ' minutos'
+        out = out + minutes + ' minutos y '
       }
       if (secs === 1) {
         out = out + secs + ' segundo'
