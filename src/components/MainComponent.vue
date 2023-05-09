@@ -1,13 +1,13 @@
 <template>
   <div class="main">
-    <div class="main__tabs">
+    <nav class="main__tabs">
       <q-tabs
         v-model="mainTab"
         dense
         inline-label
         outside-arrows
         mobile-arrows
-        class="bg-white text-black main__tabs"
+        class="bg-white text-black"
       >
         <q-tab name="AdminUsers" icon="person" label="Usuarios"></q-tab>
         <q-tab
@@ -23,16 +23,16 @@
         ></q-tab>
         <q-tab name="DebtsList" icon="payments" label="Deudas"></q-tab>
       </q-tabs>
-    </div>
+    </nav>
 
-    <div class="main__option">
+    <section class="main__option">
       <component :is="mainTab" />
-    </div>
+    </section>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue'
+import { defineComponent, ref } from 'vue'
 import AdminUsers from '@/components/users/AdminUsers.vue'
 import AdminExpenses from '@/components/expenses/AdminExpenses.vue'
 import BalanceList from '@/components/balance/BalanceList.vue'
@@ -49,10 +49,6 @@ export default defineComponent({
   props: {},
   setup() {
     const mainTab = ref('AdminUsers')
-
-    onMounted(() => {
-      console.log('onMounted MainComponent')
-    })
 
     return {
       mainTab,
